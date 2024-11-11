@@ -7,18 +7,18 @@ const BasketChilde = ({ b, deleteProduct,decrimentCoun,incrimentCoun }) => {
 
 
   return (
-    <div>
-      <p>{b.title}</p>
+    <div className='basket_childe'>
+      <p className='product_title'>{b.title}</p>
       <div>
-        <div>Mehsulun qiymeti: {b.price}</div>
-        Odenilecek mebleg: {b.price * count}
+        <div className='product_price'>Mehsulun qiymeti: {b.price}</div>
+       <div className='product_price'> Odenilecek mebleg: {b.price * count}</div>
       </div>
-      <div>
+      <div className='bascet_count'>
         <button onClick={()=>incrimentCoun(b.id)}>+</button>
-        <div>{count}</div>
+        <div className='count'>{count}</div>
         <button onClick={()=>decrimentCoun(b.id)}>-</button>
       </div>
-      <button onClick={() => deleteProduct(b.id)}>Delete</button>
+      <button className='delete_btn' onClick={() => deleteProduct(b.id)}>Delete</button>
     </div>
   );
 };

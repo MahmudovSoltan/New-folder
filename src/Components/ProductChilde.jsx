@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductChilde = ({ product, products, basket, setbasket ,setCount,count}) => {
+const ProductChilde = ({ product, products, basket, setbasket}) => {
   let newBasket = [...basket];
 
 
@@ -17,12 +17,12 @@ const ProductChilde = ({ product, products, basket, setbasket ,setCount,count}) 
     localStorage.setItem("basket",JSON.stringify(newBasket))
   };
   return (
-    <div>
+    <div className="basket_childe">
       <div>
-        <p>{product.title}</p>
-        <div>{product.price}</div>
+        <p className="product_title">{product.title}</p>
+        <div className="product_price">{product.price} AZN</div>
         <div>
-          <button onClick={() => addTobasket(product.id)}>Sebete at</button>
+          <button className="add_btn" onClick={() => addTobasket(product.id)}>Add Basket</button>
         </div>
       </div>
     </div>

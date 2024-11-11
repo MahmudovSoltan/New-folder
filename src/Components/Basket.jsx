@@ -5,15 +5,20 @@ const Basket = ({basket,count,deleteProduct , deleteAllProducts,decrimentCoun,in
   console.log(basket);
   
   return (
-    <div>
+    <>
+    <div className='basket_items'>
         {
             basket?.map((b,i)=>{
                 return <BasketChilde  b={b} key={i} count={count} deleteProduct={deleteProduct} decrimentCoun={decrimentCoun} incrimentCoun={incrimentCoun} />
             })
         }
 
-        <button onClick={deleteAllProducts}>DeletAll</button>
     </div>
+    <div className='clear_cart'>
+        <button className='' onClick={deleteAllProducts}>DeletAll</button>
+
+    </div>
+    </>
   )
 }
 
