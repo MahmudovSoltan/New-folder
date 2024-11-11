@@ -1,47 +1,71 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from 'react'
+import Product from './Components/Product'
+import Basket from './Components/Basket'
 
-function App() {
-const [name,setName] = useState("")
-const [email,setEmail] = useState("")
-const [phone,setPhone] = useState("")
-const [name2,setName2] = useState("")
-const [email2,setEmail2] = useState("")
-const [phone2,setPhone2] = useState("")
-const [error,setError]= useState(false)
-const handleUserInfo = ()=>{
-  if (name ==""||email==""||phone=="") {
-    setError(true)
-  }else if(name!=="" && email !==""&& phone !==""){
-    setError(false)
-  }
-  setName2(name)
-  setName("")
-  setEmail2(email)
-  setEmail("")
-  setPhone2(phone)
-  setPhone("")
-}
-console.log(error);
+const App = () => {
+   const [products,setproducts] = useState([
+    {
+      id:1,
+      title:"Iphone 13 pro max",
+      price:1300
+    },
+    {
+      id:2,
+      title:"Samsung A54",
+      price:800
+    },
+    {
+      id:3,
+      title:"Iphone 14",
+      price:1600
+    }
+   ])
 
+   const [basket,setbasket] = useState(JSON.parse(localStorage.getItem("basket"))||[])
+     const [count,setCount] = useState(1)
+     const deleteProduct = (id) => {
+      setbasket((prevBasket) => {
+        const updatedBasket = prevBasket.filter((prevPro) => prevPro.id !== id);
+        localStorage.setItem("basket", JSON.stringify(updatedBasket));
+        return updatedBasket;
+      });
+    };
+ 
+   console.log(basket,"basket");
+   
+    const deleteAllProducts = () => {
+      setbasket([]);
+      localStorage.removeItem("basket");
+    };
+
+    const decrimentCoun = (id) => {
+      const updatedBasket = basket.map((item) => {
+        if (item.id === id && item.count > 1) {
+          return { ...item, count: item.count - 1 };
+        }
+        return item;
+      });
+      setbasket(updatedBasket);
+      localStorage.setItem("basket", JSON.stringify(updatedBasket));
+    };
+    
+    const incrimentCoun = (id) => {
+      const updatedBasket = basket.map((item) => {
+        if (item.id === id) {
+          return { ...item, count: item.count + 1 };
+        }
+        return item;
+      });
+      setbasket(updatedBasket);
+      localStorage.setItem("basket", JSON.stringify(updatedBasket));
+    };
+    
   return (
-<div>
-<div>
-  <input value={name}  onChange={(e)=>setName(e.target.value)} style={{padding:"5px"}} type="text" placeholder='enter your name ' />
-  <input  value={email} onChange={(e)=>setEmail(e.target.value)} style={{padding:"5px"}} type="email" placeholder='enter your Surname ' />
-  <input  value={phone} onChange={(e)=>setPhone(e.target.value)} style={{padding:"5px"}} type="number" placeholder='enter your phone number ' />
-  <button onClick={handleUserInfo}>Save</button>
-</div>
-<hr />
-<div style={{display:"flex",gap:"10px"}}>
-  <p style={{minWidth:"169px",textAlign:"left",border:"1px solid black"}}>User Name: <span>{name2}</span></p>
-  <p style={{minWidth:"169px",textAlign:"left",border:"1px solid black"}}>User Surname: <span>{email2}</span></p>
-  <p style={{minWidth:"169px",textAlign:"left",border:"1px solid black"}}>User Phone Number: <span>{phone2}</span></p>
-</div>
-<div>
-{error?<p style={{color:"red"}}>Zehmet olmasa xanalari doldurun</p>:null}
-</div>
-</div>
+    <div>
+    <Product basket={basket} products={products} setbasket={setbasket} setCount={setCount} count={count}/>
+      <hr />
+      <Basket basket={basket} count={count} deleteProduct={deleteProduct} deleteAllProducts={deleteAllProducts} decrimentCoun={decrimentCoun} incrimentCoun={incrimentCoun} />
+    </div>
   )
 }
 
