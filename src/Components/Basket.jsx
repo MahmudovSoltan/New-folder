@@ -2,7 +2,8 @@ import React from 'react'
 import BasketChilde from './BasketChilde'
 
 const Basket = ({basket,count,deleteProduct , deleteAllProducts,decrimentCoun,incrimentCoun}) => {
-  console.log(basket);
+  
+  
   
   return (
     <>
@@ -14,6 +15,7 @@ const Basket = ({basket,count,deleteProduct , deleteAllProducts,decrimentCoun,in
         }
 
     </div>
+  
     <div className='clear_cart'>
         <button className='' onClick={deleteAllProducts}>DeletAll</button>
 
